@@ -11,7 +11,7 @@ namespace sNulla
         static void Main(string[] args)
         {
             char[,] eletter = new char[20, 20];
-            Random vel = new Random(Guid.NewGuid().GetHashCode());
+            //Random vel = new Random(Guid.NewGuid().GetHashCode());
             int dbA = 0, dbB = 0;
             int mennyi = 0;
 
@@ -24,8 +24,8 @@ namespace sNulla
             {
                 for (int j = 0; j < 20; j++)
                 {
-
-                    if (vel.NextDouble() < 0.4)
+                    Random vel = new Random(Guid.NewGuid().GetHashCode());
+                    if (vel.NextDouble() < 0.5)
                     {
                         eletter[i, j] = 'A';
                         dbA++;
@@ -42,47 +42,27 @@ namespace sNulla
             //Console.WriteLine(dbA);
             //Console.WriteLine(dbB);
             //Console.WriteLine(dbA / (double)dbB);
+            fileKi.WriteLine("{0};{1};{2}", dbA, dbB, dbA / (double)dbB);
             do
             {
-                //bool volt = false;
-                //Random vel2 = new Random(Guid.NewGuid().GetHashCode());
-                if (vel.NextDouble() < 0.5)
-                // A --> B
+                // véletlen egyed 
+                Random vel = new Random(Guid.NewGuid().GetHashCode());
+                int i = 0, j = 0;
+                i = vel.Next(0, 20);
+                j = vel.Next(0, 20);
+                if (eletter[i,j] == 'A')
                 {
-                    //int i, j = 0;
-                    //do
-                    //{
-                    //    i = vel.Next(0, 20);
-                    //    j = vel.Next(0, 20);
-                    //} while (eletter[i,j] != 'A');
-
-                    //eletter[i, j] = 'B';
+                    eletter[i, j] = 'B';
                     dbA--;
                     dbB++;
                 }
                 else
-                // B --> A
                 {
-                    //int i, j = 0;
-                    //do
-                    //{
-                    //    i = vel.Next(0, 20);
-                    //    j = vel.Next(0, 20);
-                    //} while (eletter[i, j] != 'B');
-                    //eletter[i, j] = 'A';
+                    eletter[i, j] = 'A';
                     dbA++;
                     dbB--;
                 }
-                //Console.Clear();
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    for (int j = 0; j < 20; j++)
-                //    {
 
-                //        Console.Write(eletter[i, j] + " ");
-                //    }
-                //    Console.WriteLine();
-                //}
                 fileKi.WriteLine("{0};{1}", dbA, dbB);
 
                 //Console.WriteLine(dbA);
@@ -94,7 +74,7 @@ namespace sNulla
                     break;
                 }
                 mennyi++;
-            } while (mennyi < 100000);
+            } while (mennyi < 1000);
 
             fileKi.Close();
             file.Close();
